@@ -24,11 +24,29 @@ public class PublicHolidayItemService {
 		return publicHolidayRepo.findById(uid);
 	}
 	
-	// Insert that holiday item if not existing in the database
-//	public PublicHolidayItem importHoliday(PublicHolidayItem publicHolidayItem) {
-//		if (publicHolidayItem.getUid() == null) {
-//			
-//		}
+//	public List<PublicHolidayItem> findAllByDateBetween(String dtstart, String dtend){
+	
+	
 //	}
+	
+	
+	// Insert that holiday item if not existing in the database
+	public void save(PublicHolidayItem publicHolidayItem) {
+		
+		
+		// check whether the holiday is existed		
+		if(getById(publicHolidayItem.getUid()) == null) {
+//		if (publicHolidayItem.getUid() == null) {
+			
+			publicHolidayRepo.save(publicHolidayItem);
+		}
+		
+	}
+	
+	//remove
+	public void delete(PublicHolidayItem publicHolidayItem) {
+		
+		publicHolidayRepo.delete(publicHolidayItem);
+	}
 	
 }

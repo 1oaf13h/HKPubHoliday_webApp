@@ -1,18 +1,19 @@
 package com.example.demo.models;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.AccessLevel;
 
 
 @Getter(AccessLevel.PUBLIC)
-@Setter(AccessLevel.PRIVATE)
+@Setter(AccessLevel.PUBLIC)
 @Entity
 @Table(name = "publicHoliday_item")
 public class PublicHolidayItem implements Serializable {
@@ -21,9 +22,9 @@ public class PublicHolidayItem implements Serializable {
 	@Column(name="uid")
 	private String uid;		// primary key
 	@Column(name="dtstart")
-	private String dtstart;
+	private LocalDate dtstart;
 	@Column(name="dtend")
-	private String dtend;
+	private LocalDate dtend;
 	@Column(name="summary")
 	private String summary;
 	
