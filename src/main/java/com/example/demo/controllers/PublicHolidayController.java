@@ -37,48 +37,7 @@ public class PublicHolidayController {
 			// Get the updated holidays from the .json file retrieved from the url
 			JsonNode root = new ObjectMapper().readTree(new URL("https://www.1823.gov.hk/common/ical/en.json"));
 			
-			
-			//------------------------------------------------
-			
-			
-//			Test 1:	Temp path
-//			byte[] jsonData = Files.readAllBytes(Paths.get("./src/main/resources/en.json"));
-//			JsonNode root = new ObjectMapper().readTree(jsonData);
-
-
-			//------------------------------------------------
-			// Parse the String to localDate:	done
-//			JsonNode testDateNode = root.get("vcalendar").get(0).get("vevent").get(0);
-//			LocalDate testDate = LocalDate.parse(
-//					testDateNode.get("dtstart").get(0).asText(), 
-//					DateTimeFormatter.BASIC_ISO_DATE);
-//			
-//			System.out.printf("Date: %s\tYear: %s\tMonth: %s\tDay: %s\n", 
-//					testDate.toString(),
-//					testDate.getYear(),
-//					testDate.getMonthValue(),
-//					testDate.getDayOfMonth());
-			
-			
-			
-			// get all holidays from the .json file:	done			
-//			if(root.get("vcalendar").get(0).get("vevent") != null && root.get("vcalendar").get(0).get("vevent").isArray()) {
-//				
-//				final ArrayNode arrayNode = (ArrayNode) root.get("vcalendar").get(0).get("vevent");
-//				
-//				for (JsonNode node : arrayNode) {
-//		
-//					System.out.printf("uid: %s\tdtstart: %s\tdtend: %s\tsummary: %s\n",
-//							node.get("uid").asText(),
-//							node.get("dtstart").get(0).asText(),
-//							node.get("dtend").get(0).asText(),
-//							node.get("summary").asText());
-//				}
-//			}
-			
-			
-			//------------------------------------------------
-			
+	
 			// Insert all holidays into the database
 			if(root.get("vcalendar").get(0).get("vevent") != null && root.get("vcalendar").get(0).get("vevent").isArray()) {
 			
@@ -89,27 +48,11 @@ public class PublicHolidayController {
 					insertPublicHolidayItem(node.get("uid").asText(), 
 							LocalDate.parse(node.get("dtstart").get(0).asText(), DateTimeFormatter.BASIC_ISO_DATE), 
 							LocalDate.parse(node.get("dtstart").get(0).asText(), DateTimeFormatter.BASIC_ISO_DATE), 
-							node.get("summary").asText());
-					
+							node.get("summary").asText());			
 				}			
 			}
 				
-			
-			
-			
-			
-			//------------------------------------------------
 
-			// Test delete
-//			publicHolidayItemService.deleteAll();
-			
-//			Iterable<PublicHolidayItem> holidayitems = publicHolidayItemService.getAll();
-//			
-//			holidayitems.forEach((holidayItem) ->{
-//				System.out.println(holidayItem.getUid());
-//			});
-			
-			//------------------------------------------------
 		
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -119,14 +62,11 @@ public class PublicHolidayController {
 			e.printStackTrace();
 		}
 		
-
 		// display the holidays in the table in the index page
 		ModelAndView modelAndView = new ModelAndView("index");
 		modelAndView.addObject("publicHolidayItems", publicHolidayItemService.getAll());
 		
 		return modelAndView;
-		
-//		return "redirect:/";
 	}
 	
 
@@ -179,7 +119,5 @@ public class PublicHolidayController {
 		publicHolidayItemService.save(item);
 	}
 	
-	
-//	@GetMapping("/search")
-	
+
 }
