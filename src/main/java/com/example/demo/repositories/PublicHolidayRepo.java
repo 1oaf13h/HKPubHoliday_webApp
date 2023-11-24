@@ -21,13 +21,18 @@ public interface PublicHolidayRepo extends JpaRepository <PublicHolidayItem, Str
 //	public Optional<PublicHolidayItem> findByName(String uid);
 	
 	
-	//unfinished
-//	ver1
-//    @Query("select a from publicHoliday_item p where p.dtstart between :dtstart and :dtend")
-//    public Optional<PublicHolidayItem> findAllWithCreationDateTimeBefore(
-//      @Param("dtstart") String date_from, @Param("dtend") String date_end);
+	@Query(value = "SELECT * FROM public_holiday_item p WHERE p.dtstart >= ?1", nativeQuery = true)
+	public Iterable<PublicHolidayItem> findAllHolidayFromStart(LocalDate dtstart);
 	
-//	ver2
-	@Query(value = "SELECT * FROM publicHoliday_item p WHERE p.dtstart >= ?1 AND p.dtend <= ?2", nativeQuery = true)
-	public Optional<PublicHolidayItem> findAllWithCreationDateTimeBefore(LocalDate dtstart, LocalDate dtend);
+	
+	@Query(value = "SELECT * FROM public_holiday_item p WHERE p.dtend <= ?1", nativeQuery = true)
+	public Iterable<PublicHolidayItem> findAllHolidayBeforeEnd(LocalDate dtend);
+	
+
+	@Query(value = "SELECT * FROM public_holiday_item p WHERE p.dtstart >= ?1 AND p.dtend <= ?2", nativeQuery = true)
+	public Iterable<PublicHolidayItem> findAllHolidayBetweenStartEnd(LocalDate dtstart, LocalDate dtend);
+
+	
 }
+
+

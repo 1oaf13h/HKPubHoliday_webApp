@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @Entity
-@Table(name = "publicHoliday_item")
+@Table(name = "publicHoliday_item")  //Due to the default name strategy is camel-case, actual table should be "public_holiday_item"
 public class PublicHolidayItem implements Serializable {
 	
 	@Id
@@ -33,7 +33,7 @@ public class PublicHolidayItem implements Serializable {
 	@Override
 	public String toString() {
 		return String.format(
-				"PublicHoliday_Item{uid=%s, dtstart='%s', dtend='%s', summary='%s'}", 
+				"PublicHoliday_Item{uid='%s', dtstart='%s', dtend='%s', summary='%s'}", 
 				uid, dtstart, dtend, summary);
 	}
 

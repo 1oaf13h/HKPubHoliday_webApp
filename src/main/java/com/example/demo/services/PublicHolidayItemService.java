@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +25,42 @@ public class PublicHolidayItemService {
 		return publicHolidayRepo.findById(uid);
 	}
 	
-//	public List<PublicHolidayItem> findAllByDateBetween(String dtstart, String dtend){
+	public Iterable<PublicHolidayItem> findAllHolidayFromStart(LocalDate dtstart){
+		return publicHolidayRepo.findAllHolidayFromStart(dtstart);
+	}
 	
+	public Iterable<PublicHolidayItem> findAllHolidayBeforeEnd(LocalDate dtend){
+		return publicHolidayRepo.findAllHolidayBeforeEnd(dtend);
+	}
 	
-//	}
+	public Iterable<PublicHolidayItem> findAllHolidayBetweenStartEnd(LocalDate dtstart, LocalDate dtend){
+		return publicHolidayRepo.findAllHolidayBetweenStartEnd(dtstart, dtend);
+	}	
 	
-	
+
 	// Insert that holiday item if not existing in the database
 	public void save(PublicHolidayItem publicHolidayItem) {
 		
-		
-		// check whether the holiday is existed		
-		if(getById(publicHolidayItem.getUid()) == null) {
-//		if (publicHolidayItem.getUid() == null) {
+		// check whether the holiday is existed				
+		if(getById(publicHolidayItem.getUid()).isEmpty()) {
 			
 			publicHolidayRepo.save(publicHolidayItem);
+		}
+		//test		
+		else {
+			System.out.println("Already Be Inserted");
 		}
 		
 	}
 	
-	//remove
+	// Delete the holiday item from the database
 	public void delete(PublicHolidayItem publicHolidayItem) {
 		
 		publicHolidayRepo.delete(publicHolidayItem);
+	}
+	
+	public void deleteAll() {
+		publicHolidayRepo.deleteAll();
 	}
 	
 }

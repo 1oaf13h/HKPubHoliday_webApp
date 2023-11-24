@@ -20,9 +20,9 @@ public class HomeController {
 	// using ModelAndView can hold for both "Model" and "View" to return a single (combined) instance 
 	@GetMapping("/")
 	public ModelAndView index() {
+		
 		ModelAndView modelAndView = new ModelAndView("index");
 		
-
 		return modelAndView;
 	}
 	
